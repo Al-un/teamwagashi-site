@@ -1,0 +1,161 @@
+@import 'variables';
+@import 'base';
+
+
+$body-margin: 20px;
+$member-image-width: 180px;
+$contact-logo-width: 280px;
+
+
+$game-image-width: 280px;
+$games-grid-col-gap: 20px;
+$games-grid-2col-width: $game-image-width * 2 + $games-grid-col-gap;
+
+$breakpoint-members-3col: $body-margin * 2 + $member-image-width * 3 + $scrollbar-width + 18px*2 + 36px * 2;
+$breakpoint-games-2col: $body-margin * 2 + $games-grid-2col-width + $scrollbar-width;
+$breakpoint-contact-2col: $body-margin * 2 + $contact-logo-width * 2 + $scrollbar-width;
+
+html {
+    scroll-behavior: smooth;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.75em;
+    margin: 1.3em 0 1.3em;
+}
+
+body {
+    background-color: $bgcolor-1;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    height: 100vh;
+    background: url("img/logo-300.jpg") center center no-repeat;
+    position: relative;
+
+    @media screen and (min-width: 600px) {
+        background-image: url("img/logo.jpg");
+    }
+}
+
+/*
+ * Sections
+ */
+
+#about-us,
+#contact {
+    background-color: $bgcolor-2;
+}
+
+.section-content {
+    max-width: 800px;
+    margin: auto;
+    padding: 1em 0;
+
+    @media screen and (max-width: 800px) {
+        padding: 1em 20px;
+    }
+}
+
+.member-name {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.member-avatar {
+    display: block;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.member-description {
+    text-align: justify;
+}
+
+.member-sns {
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+@media screen and (min-width: $breakpoint-members-3col) {
+    .members {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin: 1em;
+        grid-column-gap: 2em;
+        grid-row-gap: 1em;
+    }
+
+    .member-name {
+        grid-row: 1;
+    }
+
+    .member-avatar {
+        grid-row: 2;
+    }
+
+    .member-description {
+        grid-row: 3;
+    }
+
+    .member-sns {
+        grid-row: 4;
+    }
+}
+
+.games {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media screen and (min-width: $breakpoint-games-2col) {
+        width: $games-grid-2col-width;
+        grid-template-columns: repeat(2, $game-image-width);
+        grid-column-gap: $games-grid-col-gap;
+        margin: auto;
+    }
+}
+
+.game {
+    vertical-align: top;
+    text-align: center;
+
+    img {
+        border-radius: 1em;
+    }
+}
+
+/*
+ * Contact section
+ */
+
+#contact {
+    min-height: 51vh; // To have the menu item highlight
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+    grid-row-gap: 1em;
+
+    @media screen and (min-width: $breakpoint-contact-2col) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.contact-col {
+    text-align: center;
+
+    >:first-child {
+        margin-top: 0;
+    }
+
+    img.logo {
+        border-radius: 1em;
+    }
+}

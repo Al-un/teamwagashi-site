@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+    {{ $style := resources.Get "scss/games.scss" | toCSS | resources.Minify }}
+    <style>{{ $style.Content | safeCSS }}</style>
+
+    <meta name="description" content="{{ .Description }}">
+
+    {{ $image := resources.Get "img/favicon.png" }}
+    {{ $image := $image.Process "resize 16x" }}
+    <link rel="icon" type="{{ $image.MediaType.Type }}" href="{{ $image.RelPermalink }}">
+
+    {{ $thumb := resources.Get .Params.Thumb }}
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:description" content="{{ .Description }}">
+    <meta property="og:image" content="{{ $thumb.Permalink }}">
+    <meta property="og:image:type" content="{{ $thumb.MediaType.Type }}" />
+    <meta property="og:image:width" content="{{ $thumb.Width }}" />
+    <meta property="og:image:height" content="{{ $thumb.Height }}" />
+    <meta property="og:image:alt" content="Logo of {{ .Title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ .Permalink }}">
+</head>
+
+<body>
+    <nav id="navbar">
+        <ul class="nav-links">
+            <li><a href="{{ .Site.BaseURL | relURL }}#about-us">About us</a>
+            <li><a href="{{ .Site.BaseURL | relURL }}#our-games">Our Games</a>
+            <li><a href="{{ .Site.BaseURL | relURL }}#contact">Contact</a>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <div id="col-thumb-download">
+                {{ $image := resources.Get .Params.Thumb }}
+                {{ $image := $image.Process "resize 280x jpg" }}
+                {{ partial "picture.html" (dict "src" $image "alt" .Title "class" "rounded") }}
+
+                <ul class="sns-icons">
+                    {{ if .Params.itchio }}
+                    {{ $image := resources.Get "img/icons/itchio.png" }}
+                    {{ $alt := print "Itch page of " .Title }}
+                    <li>
+                        <a href="{{ .Params.itchio }}">
+                            {{ partial "sns-icon.html" (dict "src" $image "alt" $alt) }}
+                        </a>
+                    </li>
+                    {{ end }}
+
+                    {{ if .Params.stream }}
+                    {{ $image := resources.Get "img/icons/steam.png" }}
+                    {{ $alt := print "Steam page of " .Title }}
+                    <li>
+                        <a href="{{ .Params.stream }}">
+                            {{ partial "sns-icon.html" (dict "src" $image "alt" $alt) }}
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
+
+                <a class="btn" href="#">Download press kit</a>
+            </div>
+
+            <div id="col-description">
+                <h2>{{ .Title }}</h2>
+                {{ .Content }}
+
+                <div class="screenshots">
+                    {{ $alt := print "Screenshot of " .Title }}
+
+                    {{ range $screenshot := .Resources.ByType "image" }}
+                    {{ $resized := $screenshot.Process "resize 230x jpg" }}
+
+                    <a href="{{ $screenshot.RelPermalink }}">
+                        {{ partial "picture.html" (dict "src" $resized "alt" $alt "class" "rounded") }}
+                    </a>
+                    {{ end }}
+                </div>
+            </div>
+        </article>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+<div class="game">
+    <a href="{{ .RelPermalink }}">
+        {{ $image := resources.Get .Params.Thumb }}
+        {{ $image := $image.Process "resize 280x jpg" }}
+        {{ partial "picture.html" (dict "src" $image "alt" .Title) }}
+    </a>
+</div>

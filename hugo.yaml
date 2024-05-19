@@ -1,0 +1,16 @@
+baseURL: https://team-wagashi.com/
+languageCode: en
+title: Team Wagashi
+disableHugoGeneratorInject: true
+minify:
+  minifyOutput: true
+  tdewolff:
+    html:
+      keepDefaultAttrVals: false
+      keepDocumentTags: false
+      keepEndTags: false
+      keepSpecialComments: false
+    css:
+      keepCSS2: false
+imaging:
+  quality: 80

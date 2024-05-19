@@ -1,0 +1,8 @@
+{{ $src := .src }}
+{{ $webp := $src.Process "webp" }}
+
+<picture>
+    <source type="{{ $webp.MediaType.Type }}" srcset="{{ $webp.RelPermalink }}">
+    <source type="{{ $src.MediaType.Type }}" srcset="{{ $src.RelPermalink }}">
+    <img src="{{ $src.RelPermalink }}" alt="{{ .alt }}" height="{{ .src.Height }}" width="{{ .src.Width }}" {{ if .class }} class="{{ .class }}" {{ end }}>
+</picture>

@@ -1,0 +1,31 @@
+<h3 class="member-name">{{ .name }}</h3>
+
+{{ $image := resources.Get .avatar }}
+{{ $image := $image.Fill "180x180 jpg" }}
+<img class="member-avatar" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="Avatar of {{ .name }}">
+
+<p class="member-description">{{ .description }}</p>
+
+<ul class="sns-icons member-sns">
+
+    {{ if .instagram }}
+    {{ $image := resources.Get "img/icons/instagram.png" }}
+    {{ $alt := print "Instagram account of " .name }}
+    <li>
+        <a href="https://www.instagram.com/{{ .instagram }}/">
+            {{ partial "sns-icon.html" (dict "src" $image "alt" $alt) }}
+        </a>
+    </li>
+    {{ end }}
+
+    {{ if .x }}
+    {{ $image := resources.Get "img/icons/x.png" }}
+    {{ $alt := print "Twitter account of " .name }}
+    <li>
+        <a href="https://twitter.com/{{ .x }}/">
+            {{ partial "sns-icon.html" (dict "src" $image "alt" $alt) }}
+        </a>
+    </li>
+    {{ end }}
+
+</ul>

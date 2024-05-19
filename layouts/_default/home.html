@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+    <title>{{ .Site.Title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+    {{ $style := resources.Get "scss/homepage.scss" | toCSS | resources.Minify }}
+    <style>{{ $style.Content | safeCSS }}</style>
+
+    <meta name="description" content="{{ .Description }}">
+
+    {{ $image := resources.Get "img/favicon.png" }}
+    {{ $image := $image.Process "resize 16x" }}
+    <link rel="icon" type="{{ $image.MediaType.Type }}" href="{{ $image.RelPermalink }}">
+
+    <meta property="og:title" content="{{ .Site.Title }}">
+    <meta property="og:description" content="{{ .Description }}">
+    <meta property="og:image" content="{{ .Site.BaseURL }}img/logo.jpg">
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="450" />
+    <meta property="og:image:height" content="450" />
+    <meta property="og:image:alt" content="Team Wagashi's Logo" />
+    <meta property="og:url" content="{{ .Permalink }}">
+</head>
+
+<body>
+    <header>
+
+    </header>
+    <nav id="navbar">
+        <ul class="nav-links">
+            <li><a href="#about-us" id="navlink-about-us">About us</a>
+            <li><a href="#our-games" id="navlink-our-games">Our Games</a>
+            <li><a href="#contact" id="navlink-contact">Contact</a>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about-us">
+            <div class="section-content">
+                <h2>About us</h2>
+
+                <p>Team Wagashi's motto: We make cute games!</p>
+                <p>We are passionate about all sort of games: video games, board games, table-top-role-playing games... Our desire is to create and share cute, humorous, feel-good, and endearing games.</p>
+                <p>Meet the Team:</p>
+
+                <div class="members">
+                    {{ range $member := .Site.Data.members }}
+                    {{ partial "homepage-member-card.html" . }}
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+
+        <section id="our-games">
+            <div class="section-content">
+                <h2>Our Games</h2>
+
+                <div class="games">
+                    {{ range (where .Site.Pages "Section" "games") }}
+                    {{ range .Pages.ByWeight.Reverse }}
+                    {{ partial "homepage-game-card.html" . }}
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-content">
+                <h2>Contact</h2>
+
+                <div class="contact-grid">
+                    <div class="contact-col">
+
+                        <p>Any questions? Contact us!
+                        <p>dangos at the domain team-wagashi.com
+                        <p>Follow Us
+
+                        <ul class="sns-icons">
+                            {{ $image := resources.Get "img/icons/itchio.png" }}
+                            <li>
+                                <a href="https://team-wagashi.itch.io/">
+                                    {{ partial "sns-icon.html" (dict "src" $image "alt" "Itch account of Team Wagashi") }}
+                                </a>
+                            </li>
+
+                            {{ $image := resources.Get "img/icons/steam.png" }}
+                            <li>
+                                <a href="https://store.steampowered.com/publisher/TeamWagashi">
+                                    {{ partial "sns-icon.html" (dict "src" $image "alt" "Steam account of Team Wagashi") }}
+                                </a>
+                            </li>
+
+                            {{ $image := resources.Get "img/icons/x.png" }}
+                            <li>
+                                <a href="https://twitter.com/teamwagashi/">
+                                    {{ partial "sns-icon.html" (dict "src" $image "alt" "Twitter account of Team Wagashi") }}
+                                </a>
+                            </li>
+
+                            {{ $image := resources.Get "img/icons/linkedin.png" }}
+                            <li>
+                                <a href="https://linkedin.com/company/team-wagashi">
+                                    {{ partial "sns-icon.html" (dict "src" $image "alt" "LinkedIn account of Team Wagashi") }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="contact-col">
+                        {{ $image := resources.Get "img/logo.png" }}
+                        {{ $image := $image.Process "resize 280x jpg" }}
+                        {{ partial "picture.html" (dict "src" $image "alt" "Team Wagashi's Logo" "class" "logo") }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        window.onscroll = function () { myFunction() };
+
+        var aboutUsLink = document.getElementById("navlink-about-us");
+        var ourGamesLink = document.getElementById("navlink-our-games");
+        var contactLink = document.getElementById("navlink-contact");
+        var aboutUsOffset = document.getElementById("about-us").offsetTop - (window.visualViewport.height / 2);
+        var ourGamesOffset = document.getElementById("our-games").offsetTop - (window.visualViewport.height / 2);
+        var contactOffset = document.getElementById("contact").offsetTop - (window.visualViewport.height / 2);
+
+        function myFunction() {
+            if (window.pageYOffset >= contactOffset) {
+                aboutUsLink.classList.remove("navlink-active");
+                ourGamesLink.classList.remove("navlink-active");
+                contactLink.classList.add("navlink-active");
+            } else if (window.pageYOffset >= ourGamesOffset) {
+                aboutUsLink.classList.remove("navlink-active");
+                ourGamesLink.classList.add("navlink-active");
+                contactLink.classList.remove("navlink-active");
+            } else if (window.pageYOffset >= aboutUsOffset) {
+                aboutUsLink.classList.add("navlink-active");
+                ourGamesLink.classList.remove("navlink-active");
+                contactLink.classList.remove("navlink-active");
+            } else {
+                aboutUsLink.classList.remove("navlink-active");
+                ourGamesLink.classList.remove("navlink-active");
+                contactLink.classList.remove("navlink-active");
+            }
+        }
+    </script>
+</body>
+
+</html>
