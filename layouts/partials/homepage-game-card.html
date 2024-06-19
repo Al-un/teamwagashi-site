@@ -1,7 +1,15 @@
 <div class="game">
     <a href="{{ .RelPermalink }}">
         {{ $image := resources.Get .Params.Thumb }}
-        {{ $image := $image.Process "resize 280x jpg" }}
-        {{ partial "picture.html" (dict "src" $image "alt" .Title) }}
+        {{ $jpg := $image.Process "resize 280x jpg" }}
+        {{ $webp := $image.Process "resize 280x webp" }}
+        {{ $jpg420 := $image.Process "resize 420x jpg" }}
+        {{ $webp420 := $image.Process "resize 420x webp" }}
+
+        <picture>
+            <source type="{{ $webp.MediaType.Type }}" srcset="{{ $webp.RelPermalink }}, {{ $webp420.RelPermalink }} 1.5x">
+            <source type="{{ $jpg.MediaType.Type }}" srcset="{{ $jpg.RelPermalink }}, {{ $jpg420.RelPermalink }} 1.5x">
+            <img loading="lazy" src="{{ $jpg.RelPermalink }}" height="{{ $jpg.Height }}" width="{{ $jpg.Width }}" alt="{{ .Title }}">
+        </picture>
     </a>
 </div>

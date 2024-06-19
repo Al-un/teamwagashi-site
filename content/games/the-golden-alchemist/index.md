@@ -5,7 +5,7 @@ date: 2024-04-28T11:35:24+09:00
 draft: false
 weight: 5
 params:
-  thumb: img/the-golden-alchemist.png
+  thumb: img/games/the-golden-alchemist.png
   genre: Puzzle
   itchio: https://team-wagashi.itch.io/the-golden-alchemist
 ---

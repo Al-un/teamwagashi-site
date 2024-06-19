@@ -5,7 +5,7 @@ date: 2024-04-28T11:02:31+09:00
 draft: false
 weight: 1
 params:
-  thumb: img/crafting-humans.png
+  thumb: img/games/crafting-humans.png
   genre: Action
   itchio: https://team-wagashi.itch.io/crafting-humans
 ---

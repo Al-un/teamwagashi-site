@@ -1,8 +1,16 @@
 <h3 class="member-name">{{ .name }}</h3>
 
 {{ $image := resources.Get .avatar }}
-{{ $image := $image.Fill "180x180 jpg" }}
-<img class="member-avatar" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="Avatar of {{ .name }}">
+{{ $jpg := $image.Fill "180x180 jpg" }}
+{{ $webp := $image.Fill "180x180 webp" }}
+{{ $jpg270 := $image.Fill "270x270 jpg" }}
+{{ $webp270 := $image.Fill "270x270 webp" }}
+
+<picture>
+    <source type="{{ $webp.MediaType.Type }}" srcset="{{ $webp.RelPermalink }}, {{ $webp270.RelPermalink }} 1.5x">
+    <source type="{{ $jpg.MediaType.Type }}" srcset="{{ $jpg.RelPermalink }}, {{ $jpg270.RelPermalink }} 1.5x">
+    <img class="member-avatar" src="{{ $jpg.RelPermalink }}" width="{{ $jpg.Width }}" height="{{ $jpg.Height }}" alt="Avatar of {{ .name }}">
+</picture>
 
 <p class="member-description">{{ .description }}</p>
 

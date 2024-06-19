@@ -5,8 +5,8 @@
     <title>{{ .Title }} - {{ .Site.Title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 
-    {{ $style := resources.Get "scss/games.scss" | toCSS | resources.Minify }}
-    <style>{{ $style.Content | safeCSS }}</style>
+    {{ $style := resources.Get "css/games.scss" | toCSS | minify }}
+    <link href="{{ $style.RelPermalink }}" rel="stylesheet">
 
     <meta name="description" content="{{ .Description }}">
 
@@ -40,8 +40,16 @@
         <article>
             <div id="col-thumb-download">
                 {{ $image := resources.Get .Params.Thumb }}
-                {{ $image := $image.Process "resize 280x jpg" }}
-                {{ partial "picture.html" (dict "src" $image "alt" .Title "class" "rounded") }}
+                {{ $jpg := $image.Process "resize 280x jpg" }}
+                {{ $webp := $image.Process "resize 280x webp" }}
+                {{ $jpg420 := $image.Process "resize 420x jpg" }}
+                {{ $webp420 := $image.Process "resize 420x webp" }}
+
+                <picture>
+                    <source type="{{ $webp.MediaType.Type }}" srcset="{{ $webp.RelPermalink }}, {{ $webp420.RelPermalink }} 1.5x">
+                    <source type="{{ $jpg.MediaType.Type }}" srcset="{{ $jpg.RelPermalink }}, {{ $jpg420.RelPermalink }} 1.5x">
+                    <img src="{{ $jpg.RelPermalink }}" height="{{ $jpg.Height }}" width="{{ $jpg.Width }}" alt="{{ .Title }}" class="rounded">
+                </picture>
 
                 <ul class="sns-icons">
                     {{ if .Params.itchio }}
@@ -73,19 +81,26 @@
                 {{ .Content }}
 
                 <div class="screenshots">
-                    {{ $alt := print "Screenshot of " .Title }}
-
                     {{ range $screenshot := .Resources.ByType "image" }}
-                    {{ $resized := $screenshot.Process "resize 230x jpg" }}
+                    {{ $jpg := $screenshot.Process "resize 230x jpg" }}
+                    {{ $webp := $screenshot.Process "resize 230x webp" }}
+                    {{ $jpg345 := $screenshot.Process "resize 345x jpg" }}
+                    {{ $webp345 := $screenshot.Process "resize 345x webp" }}
 
                     <a href="{{ $screenshot.RelPermalink }}">
-                        {{ partial "picture.html" (dict "src" $resized "alt" $alt "class" "rounded") }}
+                        <picture>
+                            <source type="{{ $webp.MediaType.Type }}" srcset="{{ $webp.RelPermalink }}, {{ $webp345.RelPermalink }} 1.5x">
+                            <source type="{{ $jpg.MediaType.Type }}" srcset="{{ $jpg.RelPermalink }}, {{ $jpg345.RelPermalink }} 1.5x">
+                            <img src="{{ $jpg.RelPermalink }}" alt="Screenshot of {{ .Title }}" height="{{ $jpg.Height }}" width="{{ $jpg.Width }}" class="rounded">
+                        </picture>
                     </a>
                     {{ end }}
                 </div>
             </div>
         </article>
     </main>
+
+    {{ partial "footer.html" }}
 </body>
 
 </html>

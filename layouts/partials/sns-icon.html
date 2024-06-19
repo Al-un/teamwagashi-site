@@ -2,7 +2,7 @@
 {{ $image32 := $src.Process "resize 32x32" }}
 {{ $image48 := $src.Process "resize 48x48" }}
 
-        <picture>
-            <source srcset="{{ $image32.RelPermalink }}, {{ $image48.RelPermalink }} 1.5x">
-            <img src="{{ $image32.RelPermalink }}" width="{{ $image32.Width }}" height="{{ $image32.Height }}" alt="{{ .alt }}">
-        </picture>
+<picture>
+    <source srcset="{{ $image32.RelPermalink }}, {{ $image48.RelPermalink }} 1.5x">
+    <img src="{{ $image32.RelPermalink }}" width="{{ $image32.Width }}" height="{{ $image32.Height }}" alt="{{ .alt }}">
+</picture>

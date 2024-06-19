@@ -1,7 +1,9 @@
-baseURL: https://team-wagashi.com/
+baseURL: https://teamwagashi.com/
 languageCode: en
 title: Team Wagashi
 disableHugoGeneratorInject: true
+disableKinds: ["RSS"]
+enableRobotsTXT: true
 minify:
   minifyOutput: true
   tdewolff:

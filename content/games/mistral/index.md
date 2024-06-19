@@ -5,7 +5,7 @@ date: 2024-04-28T11:39:26+09:00
 draft: false
 weight: 4
 params:
-  thumb: img/mistral.png
+  thumb: img/games/mistral.png
   genre: Visual Novel
   itchio: https://team-wagashi.itch.io/mistral
 ---
