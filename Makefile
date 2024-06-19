@@ -3,7 +3,7 @@ PUBLIC_FOLDER = public
 all: ${PUBLIC_FOLDER}
 
 clean:
-	rm -Rf ${PUBLIC_FOLDER}
+	rm -Rf ${PUBLIC_FOLDER} resources/_gen
 
 build:
 	hugo

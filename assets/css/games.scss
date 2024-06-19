@@ -1,0 +1,62 @@
+@import 'variables';
+@import 'base';
+
+$body-margin: 20px;
+$thumb-width: 280px;
+$screenshot-width: 240px;
+$grid-col-gap: 40px;
+$breakpoint-2col: $body-margin * 2 + $thumb-width + $screenshot-width + $grid-col-gap +$scrollbar-width;
+
+
+body {
+    background-color: $bgcolor-2;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+main {
+    margin: 0 $body-margin;
+
+    @media screen and (min-width: 820px) {
+        margin: 0;
+    }
+}
+
+.rounded {
+    border-radius: 1em;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 1em;
+    border: 3px solid $color;
+    background-color: #e3c0c3;
+    padding: .563em 1em;
+    border-radius: 1em;
+    text-decoration: none;
+    color: $color;
+}
+
+article {
+    padding-top: 1em;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: $grid-col-gap;
+
+    @media screen and (min-width: $breakpoint-2col) {
+        grid-template-columns: $thumb-width auto;
+        grid-column-gap: $grid-col-gap;
+    }
+}
+
+#col-thumb-download {
+    text-align: center;
+}
+
+.screenshots {
+    text-align: center;
+
+    a {
+        text-decoration: none;
+    }
+}

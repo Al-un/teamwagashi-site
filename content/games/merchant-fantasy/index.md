@@ -5,7 +5,7 @@ date: 2024-04-28T11:02:31+09:00
 draft: false
 weight: 6
 params:
-  thumb: img/merchant-fantasy.png
+  thumb: img/games/merchant-fantasy.png
   genre: Visual Novel
   itchio: https://team-wagashi.itch.io/merchant-fantasy
 ---

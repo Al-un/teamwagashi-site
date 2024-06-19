@@ -5,7 +5,7 @@ date: 2024-04-28T11:02:31+09:00
 draft: false
 weight: 2
 params:
-  thumb: img/little-cake-shop.png
+  thumb: img/games/little-cake-shop.png
   itchio: https://team-wagashi.itch.io/little-cake-shop
 ---
 
